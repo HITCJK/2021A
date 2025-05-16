@@ -30,12 +30,36 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "adc.h"
+// #include "fft.h"
 #include "ti_msp_dl_config.h"
+
+// volatile uint16_t gADCResult[ADC_SIZE];
+volatile uint16_t gADCResult[1024];
+// volatile float32_t magnitude[ADC_SIZE / 2 + 1];
+volatile bool gCheckADC = false;
 
 int main(void)
 {
     SYSCFG_DL_init();
 
-    while (1) {
+    /* Configure DMA source, destination and size */
+    DL_DMA_setSrcAddr(DMA, DMA_CH0_CHAN_ID, (uint32_t) DL_ADC12_getFIFOAddress(ADC12_0_INST));
+
+    DL_DMA_setDestAddr(DMA, DMA_CH0_CHAN_ID, (uint32_t) &gADCResult[0]);
+
+    DL_DMA_enableChannel(DMA, DMA_CH0_CHAN_ID);
+
+    /* Setup interrupts on device */
+    NVIC_EnableIRQ(ADC12_0_INST_INT_IRQN);
+
+    // my_fft_init();
+
+    my_ADC();
+
+    while (1)
+    {
+        while (gCheckADC == false);
+        // my_fft((uint16_t *)gADCResult, (float32_t *)magnitude);
     }
 }
