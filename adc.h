@@ -2,3 +2,4 @@
 
 void ADC12_0_INST_IRQHandler(void);
 void my_ADC();
+void set_ADC_fre(double fre);

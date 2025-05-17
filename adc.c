@@ -8,7 +8,7 @@ void ADC12_0_INST_IRQHandler(void)
     {
     case DL_ADC12_IIDX_DMA_DONE:
         DL_TimerA_stopCounter(TIMER_0_INST);
-        DL_DMA_disableChannel(DMA, DMA_CH0_CHAN_ID);
+        // DL_DMA_disableChannel(DMA, DMA_CH0_CHAN_ID);
         gCheckADC = true;
         // DL_TimerA_startCounter(TIMER_0_INST);
         break;
