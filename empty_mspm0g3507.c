@@ -54,12 +54,13 @@ int main(void)
     NVIC_EnableIRQ(ADC12_0_INST_INT_IRQN);
 
     // my_fft_init();
+    set_ADC_fre(2000000.0);
 
     my_ADC();
 
     while (1)
     {
-        while (gCheckADC == false);
+        // while (gCheckADC == false);
         // my_fft((uint16_t *)gADCResult, (float32_t *)magnitude);
     }
 }

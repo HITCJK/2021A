@@ -31,15 +31,15 @@ ADC121.adcMem0trig                       = "DL_ADC12_TRIGGER_MODE_TRIGGER_NEXT";
 ADC121.enableFIFO                        = true;
 ADC121.sampCnt                           = 6;
 ADC121.enabledDMATriggers                = ["DL_ADC12_DMA_MEM10_RESULT_LOADED"];
-ADC121.peripheral.$assign                = "ADC0";
-ADC121.peripheral.adcPin0.$assign        = "PA27";
-ADC121.adcPin0Config.$name               = "ti_driverlib_gpio_GPIOPinGeneric0";
+ADC121.adcMem0chansel                    = "DL_ADC12_INPUT_CHAN_2";
 ADC121.DMA_CHANNEL.$name                 = "DMA_CH0";
 ADC121.DMA_CHANNEL.addressMode           = "f2b";
 ADC121.DMA_CHANNEL.configureTransferSize = true;
 ADC121.DMA_CHANNEL.transferSize          = 512;
 ADC121.DMA_CHANNEL.transferMode          = "FULL_CH_REPEAT_SINGLE";
 ADC121.DMA_CHANNEL.peripheral.$assign    = "DMA_CH0";
+ADC121.peripheral.$assign                = "ADC0";
+ADC121.adcPin2Config.$name               = "ti_driverlib_gpio_GPIOPinGeneric0";
 
 const Board                       = scripting.addModule("/ti/driverlib/Board", {}, false);
 Board.peripheral.$assign          = "DEBUGSS";
@@ -57,3 +57,10 @@ TIMER1.peripheral.$assign          = "TIMA0";
 
 ProjectConfig.migrationCondition = true;
 ProjectConfig.genLibCMSIS        = true;
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+ADC121.peripheral.adcPin2.$suggestSolution = "PA25";
