@@ -44,7 +44,7 @@ int main(void)
     SYSCFG_DL_init();
 
     /* Configure DMA source, destination and size */
-    DL_DMA_setSrcAddr(DMA, DMA_CH0_CHAN_ID, (uint32_t) DL_ADC12_getFIFOAddress(ADC12_0_INST));
+    DL_DMA_setSrcAddr(DMA, DMA_CH0_CHAN_ID, (uint32_t) DL_ADC12_getMemResultAddress(ADC12_0_INST,ADC12_0_ADCMEM_0));
 
     DL_DMA_setDestAddr(DMA, DMA_CH0_CHAN_ID, (uint32_t) &gADCResult[0]);
 
